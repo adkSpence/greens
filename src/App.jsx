@@ -1,16 +1,31 @@
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import WalletsPage from './pages/WalletsPage';
+import TransactionsPage from './pages/TransactionsPage';
+import WalletDetailPage from './pages/WalletDetailPage';
+
 function App() {
   return (
-    <div className="min-h-screen bg-green-50 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold text-green-800 mb-4">
-        Hello, Greens 🌿
-      </h1>
-      <p className="text-lg text-green-600">
-        Tailwind CSS is working beautifully!
-      </p>
-      <button className="mt-6 px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800">
-        Click Me
-      </button>
-    </div>
+    <Router>
+      <nav className="p-4 bg-green-700 text-white flex space-x-4">
+        <Link to="/wallets" className="hover:underline">Wallets</Link>
+        <Link to="/transactions" className="hover:underline">Transactions</Link>
+      </nav>
+      <div className="p-6">
+        <Routes>
+          {/* Default route redirects to /wallets */}
+          <Route path="/" element={<Navigate to="/wallets" />} />
+
+          {/* Wallets page */}
+          <Route path="/wallets" element={<WalletsPage />} />
+
+          {/* Wallet detail page */}
+          <Route path="/wallets/:walletId" element={<WalletDetailPage />} />
+
+          {/* Transactions page (general view) */}
+          <Route path="/transactions" element={<TransactionsPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
